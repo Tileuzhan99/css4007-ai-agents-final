@@ -113,6 +113,6 @@ test('config: env overrides .env values, defaults fill the rest', () => {
   const cfg = loadConfig({ env: { LLM_API_KEY: 'k', LLM_BASE_URL: 'http://x/v1/' }, dotenvPath: null });
   assert.equal(cfg.apiKey, 'k');
   assert.equal(cfg.baseUrl, 'http://x/v1');
-  assert.equal(cfg.model, 'llama-3.3-70b-versatile');
+  assert.equal(cfg.model, 'openai/gpt-oss-120b');
   assert.equal(cfg.maxRetries, 2);
 });

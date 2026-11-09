@@ -76,7 +76,7 @@ Tools are read-only: they only perform HTTP GET requests to public APIs and neve
 
 ## Model Selection
 
-- **Primary:** `llama-3.3-70b-versatile` through the **Groq** API (free tier, fast, supports OpenAI-style function calling).
+- **Primary:** `openai/gpt-oss-120b` through the **Groq** API (free tier, fast, supports OpenAI-style function calling).
 - The adapter uses the **OpenAI-compatible Chat Completions** format, so the provider is configurable with environment variables (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`). Alternatives that work without code changes: Google Gemini (OpenAI-compatible endpoint), OpenRouter, OpenAI, or a local model through **Ollama** (`http://localhost:11434/v1`, e.g. `qwen2.5:7b`).
 - Language: **Node.js 22**, no external npm dependencies (built-in `fetch`, `node:test`).
 - API keys are read from `.env` / environment variables and never committed.

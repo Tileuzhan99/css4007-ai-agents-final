@@ -3,7 +3,7 @@
 ## Completed Work
 
 - Wrote and committed the project proposal (`reports/proposal.md`): Sapar, a C-level travel assistant with three planned tools.
-- Implemented the LLM provider adapter `src/model-client.mjs` for any OpenAI-compatible Chat Completions API (default: Groq, `llama-3.3-70b-versatile`). It returns `{text, toolCalls}`, already supports sending tool schemas and parsing tool calls for Week 13.
+- Implemented the LLM provider adapter `src/model-client.mjs` for any OpenAI-compatible Chat Completions API (default: Groq, `openai/gpt-oss-120b`). It returns `{text, toolCalls}`, already supports sending tool schemas and parsing tool calls for Week 13.
 - Error handling: request timeout, retries with exponential backoff on 429 / 5xx / network errors, no retry on 401/403, malformed response detection, invalid JSON in tool arguments flagged instead of crashing. Error messages never contain the API key.
 - Configuration from environment variables / `.env` (`src/config.mjs`), `.env.example` with Groq, Gemini and Ollama options.
 - System prompt and input validation (`src/prompts.mjs`), CLI entry point `npm start -- "question"`.

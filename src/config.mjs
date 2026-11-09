@@ -4,7 +4,7 @@ import fs from 'node:fs';
 
 const DEFAULTS = {
   LLM_BASE_URL: 'https://api.groq.com/openai/v1',
-  LLM_MODEL: 'llama-3.3-70b-versatile',
+  LLM_MODEL: 'openai/gpt-oss-120b',
   LLM_TIMEOUT_MS: '30000',
   LLM_MAX_RETRIES: '2',
 };
