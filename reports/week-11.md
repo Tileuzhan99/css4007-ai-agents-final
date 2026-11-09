@@ -12,7 +12,9 @@
 
 ## Important Commits
 
-TODO — add hash, description and link of each commit after pushing (e.g. proposal; LLM adapter + CLI; tests + README).
+- `d9bb4f2` — Project proposal: Sapar travel assistant (level C) — https://github.com/Tileuzhan99/css4007-ai-agents-final/commit/d9bb4f2
+- `10fa56b` — OpenAI-compatible LLM adapter, config loader and CLI — https://github.com/Tileuzhan99/css4007-ai-agents-final/commit/10fa56b
+- `5f112e3` — Adapter tests and setup instructions — https://github.com/Tileuzhan99/css4007-ai-agents-final/commit/5f112e3
 
 ## Current Functionality
 
