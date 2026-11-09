@@ -1,3 +1,37 @@
+# Sapar — travel assistant agent (student project, level C)
+
+Sapar answers travel questions with an LLM. From Week 13 it will choose and call real tools: weather forecast, currency conversion and country facts. Full plan: [reports/proposal.md](reports/proposal.md).
+
+**Status (Week 11):** provider adapter + CLI with real LLM requests. No tools yet.
+
+### Setup
+
+Requires Node.js 22+. No npm dependencies.
+
+```bash
+cp .env.example .env      # then put your key in LLM_API_KEY (free key: https://console.groq.com/keys)
+npm test                  # unit tests (mocked, no key needed)
+npm start -- "What should I pack for Astana in January?"
+```
+
+Any OpenAI-compatible endpoint works (Groq, Gemini, OpenRouter, OpenAI, local Ollama) — see `.env.example`.
+
+### Code layout
+
+| File | Role |
+|---|---|
+| `src/config.mjs` | reads env vars / `.env`, applies defaults |
+| `src/model-client.mjs` | Chat Completions adapter: `complete(messages, tools) → {text, toolCalls}`, timeouts, retries with backoff on 429/5xx/network errors, clear errors without leaking the API key |
+| `src/prompts.mjs` | system prompt, input validation |
+| `src/cli.mjs` | command-line entry point |
+| `tests/model-client.test.mjs` | adapter / config / prompt tests with mocked `fetch` |
+
+### AI assistance
+
+Claude (Anthropic) was used to help draft the proposal and the initial adapter code. I reviewed, ran and tested the code and can explain it.
+
+---
+
 # AI Agents — Final Project
 
 **CSS 4007 — Artificial Intelligence · Individual project · Your choice of topic**
