@@ -25,12 +25,14 @@ The CLI sends a travel question to a real LLM and prints the answer. Example: `n
 - Different providers use different API formats.
 - Tests must not depend on a real API key or on network access.
 - An LLM can return tool-call arguments that are not valid JSON.
+- The default model `llama-3.3-70b-versatile` returned 404 `model_not_found`: Groq shut it down on 16 Aug 2026.
 
 ## Solutions
 
 - Used the OpenAI-compatible Chat Completions format, which Groq, Gemini, OpenRouter and Ollama all support; the provider is selected by `LLM_BASE_URL` and `LLM_MODEL`.
 - `fetch` is injected into `createClient`, so tests use a mock and run offline.
 - Invalid arguments are kept as `{__invalid_json: raw}` so the agent loop (Week 13) can return an error to the model instead of crashing.
+- Switched the default model to `openai/gpt-oss-120b` (Groq recommended replacement, supports tool calling). Only configuration changed, no code changes were needed, which confirms the provider-agnostic design. Verified with a real request to the model via the CLI.
 
 ## What I Learned
 
