@@ -2,7 +2,7 @@
 
 Sapar answers travel questions with an LLM. From Week 13 it will choose and call real tools: weather forecast, currency conversion and country facts. Full plan: [reports/proposal.md](reports/proposal.md).
 
-**Status (Week 11):** provider adapter + CLI with real LLM requests. No tools yet.
+**Status (Week 12):** provider adapter + CLI with real LLM requests; three tools working against real APIs with argument validation. Tools are not yet connected to the LLM (Week 13).
 
 ### Setup
 
@@ -12,6 +12,11 @@ Requires Node.js 22+. No npm dependencies.
 cp .env.example .env      # then put your key in LLM_API_KEY (free key: https://console.groq.com/keys)
 npm test                  # unit tests (mocked, no key needed)
 npm start -- "What should I pack for Astana in January?"
+
+# run a single tool against the real API (no LLM, no key needed)
+npm run tool -- get_weather_forecast city=Almaty days=3
+npm run tool -- convert_currency amount=50000 from=KZT to=GEL
+npm run tool -- get_country_info country=Georgia
 ```
 
 Any OpenAI-compatible endpoint works (Groq, Gemini, OpenRouter, OpenAI, local Ollama) — see `.env.example`.
@@ -24,7 +29,15 @@ Any OpenAI-compatible endpoint works (Groq, Gemini, OpenRouter, OpenAI, local Ol
 | `src/model-client.mjs` | Chat Completions adapter: `complete(messages, tools) → {text, toolCalls}`, timeouts, retries with backoff on 429/5xx/network errors, clear errors without leaking the API key |
 | `src/prompts.mjs` | system prompt, input validation |
 | `src/cli.mjs` | command-line entry point |
+| `src/validate.mjs` | `validateArgs(schema, args)`: checks model-proposed tool arguments against the same JSON schema the model sees |
+| `src/tools/weather.mjs` | `get_weather_forecast` — Open-Meteo geocoding + daily forecast |
+| `src/tools/currency.mjs` | `convert_currency` — open.er-api.com daily rates, conversion done in code |
+| `src/tools/country.mjs` | `get_country_info` — capital, currencies, languages, borders from the mledoze/countries dataset |
+| `src/tools/http.mjs` | shared `getJson()` with timeout; failures become `ToolError` with a `kind` (`not_found` / `unavailable` / `bad_response`) |
+| `src/tools/index.mjs` | tool registry and `runTool()`: unknown tool → reject, invalid args → reject, else execute; always returns `{ok, ...}` |
+| `src/try-tool.mjs` | `npm run tool` — run one tool by hand |
 | `tests/model-client.test.mjs` | adapter / config / prompt tests with mocked `fetch` |
+| `tests/tools.test.mjs` | validator, tools and `runTool()` tests with mocked `fetch` |
 
 ### AI assistance
 
